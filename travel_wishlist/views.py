@@ -4,6 +4,11 @@ from .forms import NewPlaceForm
 
 def place_list(request):
 
+    """
+    View to show all places in the wishlist. If the request is a POST, 
+    it means the user has submitted a new place, so validate the form, save it, 
+    and redirect back to this view.
+    """
     if request.method == 'POST':
         form = NewPlaceForm (request.POST)
         place = form.save()
@@ -17,10 +22,21 @@ def place_list(request):
 
 
 def places_visited(request):
+    
+    """
+    View to display all places that have been visited. 
+    Retrieves places marked as visited from the database 
+    and renders them in the 'visited.html' template.
+    """
     visited = Place.objects.filter(visited=True)
     return render(request, "travel_wishlist/visited.html", {"visited": visited})
 
 def place_was_visited(request, place_pk):
+    """
+    View to mark a place as visited. If the request is a POST 
+    the user has marked a place as visited so update the place in the
+    database and redirect back to the "place_list" view.
+    """
     if request.method == 'POST':
         #place = Place.objects.get(pk=place_pk)
         place = get_object_or_404(Place, pk=place_pk)

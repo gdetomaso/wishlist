@@ -3,11 +3,11 @@
 
 <h2>Travel Wishlist</h2>
 
-<from method="POST" action="{% url 'place_list' %}">
+<form method="POST" action="{% url 'place_list' %}">
     {% csrf_token %}
     {{ new_place_form }}
     <button id="add-new-place" type="submit">Add</button>
-</from>
+</form>
 
 
 
